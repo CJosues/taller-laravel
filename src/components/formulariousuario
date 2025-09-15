@@ -1,0 +1,26 @@
+<script setup>
+import { ref } from 'vue'
+import axios from 'axios'
+
+const nombre = ref('')
+const email = ref('')
+const rol = ref('usuario')
+
+const agregarUsuario = async () => {
+  await axios.post('/api/usuarios', {
+    nombre: nombre.value,
+    email: email.value,
+    rol: rol.value
+  })
+  alert('Usuario agregado correctamente')
+}
+</script>
+
+<template>
+  <v-form>
+    <v-text-field v-model="nombre" label="Nombre" />
+    <v-text-field v-model="email" label="Email" />
+    <v-select v-model="rol" :items="['usuario', 'admin']" label="Rol" />
+    <v-btn @click="agregarUsuario">Agregar Usuario</v-btn>
+  </v-form>
+</template>
